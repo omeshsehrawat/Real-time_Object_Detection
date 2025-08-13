@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Real-Time Object Detection UI</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="container">
+
+    <!-- Sidebar / Menu -->
+    <div class="sidebar" id="sidebar">
+        <h2>Total objects Detected<div class="count-box">0</div></h2>
+       
+        <h3>Live Count
+        <p>Truck: 0</p>
+        <p>Person: 0</p>
+        <p>Cycle: 0</p>
+        </h3>
+    
+        <h3>History
+        <p>--:-- AM</p>
+        <p>--:-- AM</p>
+        </h3>
+    </div>
+
+    <!-- Menu Panel -->
+    <div class="menu-panel" id="menuPanel">
+    
+        <button class="menu-btn">Camera Panel</button>
+        <button class="menu-btn">Dashboard</button>
+        <button class="menu-btn">Database</button>
+        <button class="menu-btn">Settings</button>
+    </div>
+
+    <!-- Main Camera View -->
+    <div class="main">
+        <!-- Top Bar -->
+        <div class="top-bar">
+            <div class="menu-icon" id="menuIcon">&#9776;</div>
+            <h1>Real-Time Object Detection</h1>
+        </div>
+
+        <video id="video" autoplay playsinline></video>
+        
+        <div class="controls">
+            <button id="pauseBtn">Pause</button>
+            <button id="captureBtn">Capture</button>
+        </div>
+        
+        <canvas id="canvas" style="display:none;"></canvas>
+    </div>
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>=
