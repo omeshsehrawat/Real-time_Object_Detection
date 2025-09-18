@@ -1,58 +1,137 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Real-Time Object Detection UI</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Camera Monitoring Interface</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="stylesheet" href="styles.css">
+  
 </head>
 <body>
 <div class="container">
 
-    <!-- Sidebar / Menu -->
-    <div class="sidebar" id="sidebar">
-        <h2>Total objects Detected<div class="count-box">0</div></h2>
-       
-        <h3>Live Count
-        <p>Truck: 0</p>
-        <p>Person: 0</p>
-        <p>Cycle: 0</p>
-        </h3>
+  <!-- Sidebar -->
+  <div class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <h2>Camera Monitor</h2>
+      <button class="theme-toggle" id="themeToggle">
+        <i class="fas fa-moon"></i>
+      </button>
+    </div>
     
-        <h3>History
-        <p>--:-- AM</p>
-        <p>--:-- AM</p>
-        </h3>
+    <div>
+      <h3>Camera Status: <span class="count-box">Active</span></h3>
     </div>
-
-    <!-- Menu Panel -->
-    <div class="menu-panel" id="menuPanel">
     
-        <button class="menu-btn">Camera Panel</button>
-        <button class="menu-btn">Dashboard</button>
-        <button class="menu-btn">Database</button>
-        <button class="menu-btn">Settings</button>
+    <div class="stats-grid">
+      <div class="stat-card">
+        <i class="fas fa-video"></i>
+        <div class="count">720p</div>
+        <div class="label">Resolution</div>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-clock"></i>
+        <div class="count" id="uptime">00:00:00</div>
+        <div class="label">Uptime</div>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-bolt"></i>
+        <div class="count">30</div>
+        <div class="label">FPS</div>
+      </div>
+      <div class="stat-card">
+        <i class="fas fa-network-wired"></i>
+        <div class="count">Good</div>
+        <div class="label">Connection</div>
+      </div>
     </div>
 
-    <!-- Main Camera View -->
-    <div class="main">
-        <!-- Top Bar -->
-        <div class="top-bar">
-            <div class="menu-icon" id="menuIcon">&#9776;</div>
-            <h1>Real-Time Object Detection</h1>
-        </div>
-
-        <video id="video" autoplay playsinline></video>
-        
-        <div class="controls">
-            <button id="pauseBtn">Pause</button>
-            <button id="captureBtn">Capture</button>
-        </div>
-        
-        <canvas id="canvas" style="display:none;"></canvas>
+    <div class="live-count">
+      <h3><i class="fas fa-info-circle"></i> Camera Info</h3>
+      <div class="object-item">
+        <span>Status</span>
+        <span id="liveTruckCount">Active</span>
+      </div>
+      <div class="object-item">
+        <span>Frame Rate</span>
+        <span id="livePersonCount">30 FPS</span>
+      </div>
+      <div class="object-item">
+        <span>Resolution</span>
+        <span id="liveCycleCount">1280x720</span>
+      </div>
+      <div class="object-item">
+        <span>Brightness</span>
+        <span id="liveCarCount">78%</span>
+      </div>
     </div>
+
+    <div class="history">
+      <h3><i class="fas fa-history"></i> Recent Activity</h3>
+      <ul id="historyList">
+        <li>Camera started <span class="time">2 min ago</span></li>
+        <li>Snapshot captured <span class="time">1 min ago</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- Menu Panel -->
+  <div class="menu-panel" id="menuPanel">
+    <div class="menu-header">
+      <h2>Menu</h2>
+      <button class="close-menu" id="closeMenu">
+        <i class="fas fa-times"></i>
+      </button>
+    </div>
+    <button class="menu-btn"><i class="fas fa-video"></i> Camera Panel</button>
+    <button class="menu-btn"><i class="fas fa-tachometer-alt"></i> Dashboard</button>
+    <button class="menu-btn"><i class="fas fa-database"></i> Recordings</button>
+    <button class="menu-btn"><i class="fas fa-cog"></i> Settings</button>
+    <button class="menu-btn"><i class="fas fa-sliders-h"></i> Adjustments</button>
+    <button class="menu-btn"><i class="fas fa-download"></i> Export</button>
+    <button class="menu-btn"><i class="fas fa-question-circle"></i> Help</button>
+  </div>
+
+  <!-- Main -->
+  <div class="main">
+    <div class="top-bar">
+      <div class="menu-icon" id="menuIcon">
+        <i class="fas fa-bars"></i>
+      </div>
+      <div class="title-section">
+        <h1>Camera Monitoring Interface</h1>
+        <p>Live video feed with monitoring controls</p>
+      </div>
+      <div class="status" id="status">Active</div>
+    </div>
+
+    <div class="video-container">
+      <video id="video" autoplay playsinline muted></video>
+      <canvas id="canvas"></canvas>
+    </div>
+
+    <div class="controls">
+      <button id="startBtn" class="btn-primary"><i class="fas fa-play"></i> Start</button>
+      <button id="pauseBtn" class="btn-secondary"><i class="fas fa-pause"></i> Pause</button>
+      <button id="captureBtn" class="btn-secondary"><i class="fas fa-camera"></i> Snapshot</button>
+      <select id="cameraSettings">
+        <option value="auto">Auto Settings</option>
+        <option value="brightness">Brightness</option>
+        <option value="contrast">Contrast</option>
+        <option value="saturation">Saturation</option>
+      </select>
+      <button id="fullscreenBtn" class="btn-secondary"><i class="fas fa-expand"></i></button>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast">
+  <i class="fas fa-check-circle"></i>
+  <span id="toastMessage">Snapshot saved successfully!</span>
 </div>
 
 <script src="script.js"></script>
 </body>
-</html>=
+</html>
