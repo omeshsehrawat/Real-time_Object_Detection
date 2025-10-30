@@ -14,13 +14,13 @@ class CameraStreamer:
         pipeline_str = (
             "rtspsrc location=rtsp://192.168.1.71:554/cam/realmonitor?channel=1&subtype=0 "
             "user-id=admin user-pw=frass@123 protocols=tcp latency=50 ! "
-            "rtph264depay ! h264parse ! nvh264dec ! "
-            "videoconvert ! jpegenc quality=60 ! "
-            "appsink name=sink emit-signals=true sync=false drop=false max-buffers=5"
+            "rtph264depay ! h264parse ! avdec_h264 ! "  
+            "videoconvert ! video/x-raw,format=BGR ! "
+            "jpegenc ! appsink name=appsink emit-signals=true max-buffers=1 drop=true"
         )
 
         self.pipeline = Gst.parse_launch(pipeline_str)
-        self.appsink = self.pipeline.get_by_name("sink")
+        self.appsink = self.pipeline.get_by_name("appsink")
         self.appsink.connect("new-sample", self.on_new_sample)
         self.pipeline.set_state(Gst.State.PLAYING)
 
