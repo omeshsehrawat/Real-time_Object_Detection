@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Elements
+
   const videoFeed = document.getElementById("videoFeed");
   const startBtn = document.getElementById("startBtn");
   const pauseBtn = document.getElementById("pauseBtn");
@@ -9,19 +9,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const toast = document.getElementById("toast");
   const toastMessage = document.getElementById("toastMessage");
 
-  // UI Elements
+
   const themeToggle = document.getElementById("themeToggle");
   const menuIcon = document.getElementById("menuIcon");
   const menuPanel = document.getElementById("menuPanel");
   const closeMenu = document.getElementById("closeMenu");
 
-  // State
+
   let isStreaming = false;
   let currentStreamUrl = videoFeed.getAttribute("src");
 
-  /* ======================
-        CAMERA CONTROLS
-  ====================== */
 
   // Start camera
   startBtn.addEventListener("click", () => {
